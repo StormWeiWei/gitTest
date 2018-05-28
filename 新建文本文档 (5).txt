@@ -1,0 +1,52 @@
+<body>
+<%
+   List<OrdinaryStudent> list=(List<OrdinaryStudent>)request.getAttribute("list");
+    if(list!=null){
+    	System.out.println("queryAllOrdinaryStudent.jsp中"+"查询成功");
+    }else{
+    	System.out.println("queryAllOrdinaryStudent.jsp中"+"查询失败");
+    }
+%>
+   <h2>学生列表</h2>
+
+
+  <table border="1" width="80%">
+     <tr>
+        <th>学号</th>
+        <th>密码</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>地址</th>
+        <th>邮箱</th>
+        <th>相片</th>
+        <th>操作</th>
+     </tr>
+     <%
+        if(list!=null){
+        	for(int i=0;i<list.size();i++){
+        		out.print("<tr>");
+        		out.print("<td>"+list.get(i).getStuId()+"</td>");
+        		out.print("<td>"+list.get(i).getStuPwd()+"</td>");
+        		out.print("<td>"+list.get(i).getStuName()+"</td>");
+        		out.print("<td>"+list.get(i).getStuSex()+"</td>");
+        		out.print("<td>"+list.get(i).getLocal()+"</td>");
+        		out.print("<td>"+list.get(i).getStuemail()+"</td>");
+        		out.print("<td>"+null+"</td>");
+        		out.print("<td><a href='DeleteSystemUserServlet?sysId="+list.get(i).getStuId()+"'>删除&nbsp&nbsp<a href='updateSystemUser.jsp?sysId="+list.get(i).getStuId()+"'>更新<a/></td>");
+        		out.print("</tr>");
+        	}
+        	
+        	
+        	
+        }
+     
+     %>
+  
+  
+  
+  </table>
+
+
+
+
+</body>

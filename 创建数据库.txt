@@ -1,0 +1,58 @@
+//借阅
+create table borrowinginfor(
+bookcode varchar2(10),
+bookname varchar2(15),
+booktype varchar2(15),
+bookauthor varchar2(15),
+inventory number,
+borrownum number,
+borrowday number,
+returnif varchar2(10),
+returntime varchar2(20),
+note varchar2(20),
+borrower varchar2(15),
+auditif varchar2(10),
+addtime varchar2(20)
+)
+/
+插入数据
+insert into borrowinginfor values(1501,'朝花夕拾','文学','鲁迅',20,1,30,'否',sysdate,'散文书籍','韦广琼','是',sysdate)
+
+
+
+create table  commstuborrow(
+bookcode varchar2(15) primary key,
+bookname varchar2(15),
+booktype varchar2(15),
+bookauthor varchar2(15),
+inventory number,
+borrownum number,
+borrowday number,
+returnif varchar2(10),
+returntime varchar2(20),
+note varchar2(10),
+borrower varchar2(15),
+auditt varchar2(10),
+borrowtime varchar2(20),
+)
+/
+//查询全部
+select bookcode,bookname,booktype,bookauthor,inventory,borrownum,borrowday,returnif,returntime,note,borrower,auditt,borrowtime from commstuborrow
+//插入
+insert into commstuborrow values('123','朝花夕拾','文学','鲁迅',2,1,30,'否',sysdate-10,'哈哈','韦广琼','haha',sysdate+30)
+/
+
+ //1、创建XMLHttpResult对象
+		   xmlHttpRequest=new XMLHttpRequest();
+		   //2、设置回调函数(注意，回调函数的名字后面没有小括号)
+		   xmlHttpRequest.onreadystatechange=callBack;
+		   //3、初始化XMLHttpRequest对象的参数值及请求头
+		   var url="MobileServlet";
+		   xmlHttpRequest.open("post",url,true);
+		   //post方式需要设置请求头
+		   xmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		   //4、发送HTTP请求
+		   var data="mobile="+$mobile;
+		   xmlHttpRequest.send(data);
+
+

@@ -1,0 +1,93 @@
+package demo;
+
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io .File;
+
+import javax.imageio.ImageIO; 
+import com.swetake.util.Qrcode; 
+ 
+public class WeiXin_Code { 
+	/** 
+	 * @param content 显示的内容 
+	 * @param imgPath 生成成功后存放的路径
+	  */ 	
+	public static void getQrcodeImage(String content, String imgPath) 
+	{ 		
+		//设置二维码的长和宽
+		int width = 235; 
+		int height = 235; 		
+		  // 实例化一个Qrcode对象 	
+		Qrcode qrcode = new Qrcode(); 		
+		  // 编码方式 	
+		qrcode.setQrcodeEncodeMode('B'); 	
+		   //设置二维码排错率，可选L(7%)、M(15%)、Q(25%)、H(30%)，排错率越高可存储的信息越少，但对二维码清晰度的要求越小
+		qrcode.setQrcodeErrorCorrect('M'); 		
+		    // 二维码的版本,设置设置二维码尺寸，取值范围1-40，值越大尺寸越大，可存储的信息越大 		
+		qrcode.setQrcodeVersion(15); 	
+		  // 绘制二维码 	
+		  // 画板 	
+		   //BufferedImage是Image的一个子类，Image和BufferedImage的主要作用就是将一副图片加载到内存中
+		  //BufferedImage是Image的一个子类，BufferedImage生成的图片在内存里有一个图像缓冲区，
+		   //利用这个缓冲区我们可以很方便的操作这个图片，通常用来做图片修改操作如大小变换、图片变灰、设置图片透明或不透明等。
+		BufferedImage image = new BufferedImage(width, height, 	
+				BufferedImage.TYPE_INT_RGB); 	
+		// 画笔 	
+		//Java 2D拥有强大的二维图形处理能力，这些功能主要是由Graphics2D类来完成的，
+		//该类是Graphics类的一个子类。它的特点是把所绘的图形当成一个对象来处理，绘制前先创建对象。
+		Graphics2D gs = image.createGraphics(); 
+		// 设置背景颜色 白色 	
+		gs.setBackground(Color.WHITE); 
+		// 设置二维码的颜色 		
+		gs.setColor(Color.black); 
+		// 创建一个二维码的绘制区域 	
+		//public abstract void clearRect(int x, int y, int width, int height) 通过使用当前绘图表面的背景色进行填充来清除指定的矩形	
+		gs.clearRect(0, 0, width, height); 	
+		byte[] codeOut; 	
+		//输出内容
+		try { 	
+			//字符编码
+			codeOut = content.getBytes("utf-8"); 		
+			boolean[][] code = qrcode.calQrcode(codeOut); 		
+			for (int i = 0; i < code.length; i++) { 	
+				for (int j = 0; j < code.length; j++) { 	
+					if (code[j][i]) { 	
+						//控制生成的二维码大小跟 gs.fillRect(j * 3 + pixoff, i * 3 + pixoff, 3, 3); 有关系；
+						//3代表三厘米的二维码，2代表2厘米的二维码，1代表1厘米的二维码。
+						gs.fillRect(j * 3 + 2, i * 3 + 2, 3, 3); 	
+						} 			
+					} 		
+				} 		
+			// 加载logo 	
+			File file = new File("D:/aa.jpg"); 	
+			//读取图片
+			Image srcImage = ImageIO.read(file); 
+			int imgWidth = srcImage.getWidth(null); 		
+			int imgHeith = srcImage.getHeight(null); 
+			//图片的缩放
+			gs.drawImage(srcImage, 83, 83, imgWidth, imgHeith, null); 
+			// 释放资源 			
+			gs.dispose(); 	
+			image.flush(); 		
+			// 写入指定路径 			
+			ImageIO.write(image, "jpg", new File(imgPath)); 	
+			System.out.println("二维码生成成功了！"); 	
+			} catch (Exception e) { 	
+				// TODO Auto-generated catch block 		
+				e.printStackTrace(); 	
+				} 	
+		} 	
+	public static void main(String[] args)
+	{ 		
+		//调用静态方法，并传参
+		getQrcodeImage("https://lanqiao.coding.me/", "d:/x1.jpg"); 
+	
+		
+	}
+}
+
+
+
