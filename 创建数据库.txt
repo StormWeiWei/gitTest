@@ -1,4 +1,6 @@
-//½èÔÄ
+//éŸ¦å¹¿ç¼ä¿®æ”¹çš„
+
+//å€Ÿé˜…
 create table borrowinginfor(
 bookcode varchar2(10),
 bookname varchar2(15),
@@ -15,8 +17,8 @@ auditif varchar2(10),
 addtime varchar2(20)
 )
 /
-²åÈëÊı¾İ
-insert into borrowinginfor values(1501,'³¯»¨Ï¦Ê°','ÎÄÑ§','Â³Ñ¸',20,1,30,'·ñ',sysdate,'É¢ÎÄÊé¼®','Î¤¹ãÇí','ÊÇ',sysdate)
+æ’å…¥æ•°æ®
+insert into borrowinginfor values(1501,'æœèŠ±å¤•æ‹¾','æ–‡å­¦','é²è¿…',20,1,30,'å¦',sysdate,'æ•£æ–‡ä¹¦ç±','éŸ¦å¹¿ç¼','æ˜¯',sysdate)
 
 
 
@@ -36,22 +38,22 @@ auditt varchar2(10),
 borrowtime varchar2(20),
 )
 /
-//²éÑ¯È«²¿
+//æŸ¥è¯¢å…¨éƒ¨
 select bookcode,bookname,booktype,bookauthor,inventory,borrownum,borrowday,returnif,returntime,note,borrower,auditt,borrowtime from commstuborrow
-//²åÈë
-insert into commstuborrow values('123','³¯»¨Ï¦Ê°','ÎÄÑ§','Â³Ñ¸',2,1,30,'·ñ',sysdate-10,'¹ş¹ş','Î¤¹ãÇí','haha',sysdate+30)
+//æ’å…¥
+insert into commstuborrow values('123','æœèŠ±å¤•æ‹¾','æ–‡å­¦','é²è¿…',2,1,30,'å¦',sysdate-10,'å“ˆå“ˆ','éŸ¦å¹¿ç¼','haha',sysdate+30)
 /
 
- //1¡¢´´½¨XMLHttpResult¶ÔÏó
+ //1ã€åˆ›å»ºXMLHttpResultå¯¹è±¡
 		   xmlHttpRequest=new XMLHttpRequest();
-		   //2¡¢ÉèÖÃ»Øµ÷º¯Êı(×¢Òâ£¬»Øµ÷º¯ÊıµÄÃû×ÖºóÃæÃ»ÓĞĞ¡À¨ºÅ)
+		   //2ã€è®¾ç½®å›è°ƒå‡½æ•°(æ³¨æ„ï¼Œå›è°ƒå‡½æ•°çš„åå­—åé¢æ²¡æœ‰å°æ‹¬å·)
 		   xmlHttpRequest.onreadystatechange=callBack;
-		   //3¡¢³õÊ¼»¯XMLHttpRequest¶ÔÏóµÄ²ÎÊıÖµ¼°ÇëÇóÍ·
+		   //3ã€åˆå§‹åŒ–XMLHttpRequestå¯¹è±¡çš„å‚æ•°å€¼åŠè¯·æ±‚å¤´
 		   var url="MobileServlet";
 		   xmlHttpRequest.open("post",url,true);
-		   //post·½Ê½ĞèÒªÉèÖÃÇëÇóÍ·
+		   //postæ–¹å¼éœ€è¦è®¾ç½®è¯·æ±‚å¤´
 		   xmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-		   //4¡¢·¢ËÍHTTPÇëÇó
+		   //4ã€å‘é€HTTPè¯·æ±‚
 		   var data="mobile="+$mobile;
 		   xmlHttpRequest.send(data);
 
