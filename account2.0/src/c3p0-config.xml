@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+	<!-- 默认配置 -->
+	<default-config>
+		<property name="user">scott</property>
+		<property name="password">tiger</property>
+		<property name="driverClass">oracle.jdbc.driver.OracleDriver</property>
+		<property name="jdbcUrl">jdbc:oracle:thin:@localhost:1521:orcl</property>
+		<property name="checkoutTimeout">2000</property>
+		<property name="initialPoolSize">10</property>
+		<property name="maxIdleTime">15</property>
+		<property name="maxPoolSize">20</property>
+		<property name="minPoolSize">5</property>
+	</default-config>
+	
+	<!-- 自定义配置：一个才<c3p0-config>中可以包含任意数量的<named-config> -->
+	<!-- name为“kleine”的配置 -->
+	<named-config name="kleine">
+	<property name="initialPoolSize">10</property>
+	<property name="maxPoolSize">15</property>
+	<property name="driverClass">oracle.jdbc.driver.OracleDriver</property>
+	<property name="jdbcUrl">jdbc:oracle:thin:@localhost:1521:orcl</property>
+	<!-- 此named-config中，没有配置user password等信息，C3P0会自动寻找
+	default-config中的相应信息 -->
+	</named-config>
+	
+</c3p0-config>

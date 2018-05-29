@@ -1,0 +1,117 @@
+﻿我叫韦广琼 我叫韦广琼
+你叫啥？你叫啥？
+
+#include "config.h"
+ const uint32 BEEP=1<<7;
+ const uint32 KEY1=1<<6;
+ const uint32 LEDS8=(0XFF<<18);
+//P0.7控制蜂鸣器
+//p0.16连接KEY1
+//P1[25:18]连接LED灯
+/*
+   函数名称：main()
+ 函数功能：GPIO输入实验测试
+   按键按下KEY1,蜂鸣器蜂鸣，LED灯山所松开后停止蜂鸣，LED灭
+   跳线说明：把JP8的KEY1跳线短接，JP11连接蜂鸣器，连接跳线JP12至LED8~LED1.
+ 
+
+ 函数名称DelayNS()
+  函数功能：长软件延时
+ 入口参数：dly
+延时参数，值越大，延时越久
+出口参数：无
+*/
+
+void DelayNS(uint32 dly)
+{
+   uint32 i;
+    for(;dly>0;dly--)
+        for(i=0;i<5000;i++);
+}
+
+  int main(void)
+{
+     PINSEL0=0X00000000;
+     PINSEL1=0X00000000;
+     PINSEL2=PINSEL2&(~0X08);
+     IO0DIR=BEEP;
+     IO1DIR=LEDS8;
+   while(1){
+    if((IO0PIN&KEY1)==0)
+      IO0CLR=BEEP,DelayNS(20),IO1CLR=LEDS8,DelayNS(20);
+    else
+        IO0SET=BEEP,DelayNS(20),IO1SET=LEDS8,DelayNS(20);
+//如果KEY1按下，蜂鸣器鸣叫，LED闪烁
+//松开则停止蜂鸣，LED灯灭
+
+   }
+return 0；
+
+
+}
+
+***********************************************
+#include "config.h"
+#define BEEPCON 0X00000080
+void DelayNS(uint32 dly)
+{
+   uint32 i;
+    for(;dly>0;dly--)
+        for(i=0;i<5000;i++);
+}
+ int main(void){
+  uint8 i;
+   PINSEL0=0X00000000;//设置SPIO管脚连接
+   PINSEL1=0X00000000;
+   IO0DIR=BEEPCON;
+    while(1)
+{
+   IO0SET=BEEPCON;
+   DelayNS(25);
+   IO0CLR=BEEPCON;
+      DelayNS(25);
+
+
+}
+   return(0);
+}
+
+
+
+public static final String DRIVER="oracle.jdbc.OracleDriver";
+	public static final String URL="jdbc:oracle:thin:@localhost:1521:orcl";
+	public static final String USERNAME="scott";
+	public static final String PASSWORD="tiger";
+	
+	public static void main(String args[]){
+		//创建连接数据库的对象
+		Connection connection=null;
+		//创建操作数据库的对象
+		PreparedStatement preparedStatement=null;
+		//查询结果集
+		int count=0;
+		
+		try {
+			Class.forName(DRIVER);
+			 connection=DriverManager.getConnection(URL,USERNAME,PASSWORD);
+		String sql="insert into studentlogin values(6,'a','b','c')";
+		preparedStatement=connection.prepareStatement(sql);
+		
+		count=preparedStatement.executeUpdate();
+		if(count>0){
+			System.out.println("添加成功");
+		}else{
+			System.out.println("添加失败");
+		}
+		
+		
+		
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	  
+	}
